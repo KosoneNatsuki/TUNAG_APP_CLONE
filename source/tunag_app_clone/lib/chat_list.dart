@@ -6,15 +6,23 @@ class ChatList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color(0xFF41ADBC),
-        title: const Text(
-          "チャット",
-          style: TextStyle(fontSize: 30, color: Colors.white),
-        ),
-      ),
-      body: Container(
-        color: Colors.white,
+      body: Stack(
+        children: [
+          // TUNAGラベル
+          Container(
+            alignment: const Alignment(0, -0.3), // 中央に配置
+            child: const Text(
+              "TUNAGへようこそ",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  color: Color.fromARGB(255, 0, 0, 0),
+                  fontSize: 40,
+                  fontWeight: FontWeight.bold),
+            ),
+          ),
+
+          // ボタンエリア
+        ],
       ),
     );
   }

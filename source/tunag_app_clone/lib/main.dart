@@ -37,7 +37,7 @@ class _StartPageState extends State<StartPage> {
   Timer? timer;
   // 画面初期化時に呼ばれる関数
   // タイマーをスタート
-  
+
   @override
   void initState() {
     super.initState();
