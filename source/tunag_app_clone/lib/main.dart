@@ -71,7 +71,7 @@ class _StartPageState extends State<StartPage> {
         children: [
           // TUNAGラベルの背景色
           Positioned(
-            top: 295,
+            top: 315,
             child: Container(
               width: 411,
               height: 92,
