@@ -70,14 +70,15 @@ class _StartPageState extends State<StartPage> {
       body: Stack(
         children: [
           // TUNAGラベルの背景色
-          Positioned(
-            top: 315,
+          Container(
+            alignment: const Alignment(0.0, 0.0), // 中央に配置
             child: Container(
               width: 411,
               height: 92,
               decoration: const BoxDecoration(color: Color(0xFF41ADBC)),
             ),
           ),
+
           //TUNAGラベル
           Container(
             alignment: const Alignment(0.0, 0.0), // 中央に配置
