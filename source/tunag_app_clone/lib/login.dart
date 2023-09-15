@@ -8,12 +8,11 @@ class LoginPage extends StatelessWidget {
     return Scaffold(
       body: Stack(children: [
         Container(
-          alignment: const Alignment(0, -0.3),
+          alignment: const Alignment(0, 0),
           child: const Text(
-            "ログイン画面",
-            textAlign: TextAlign.center,
+            "TUNAG",
             style: TextStyle(
-                color: Color.fromARGB(255, 0, 0, 0),
+                color: Color(0xFF41ADBC),
                 fontSize: 40,
                 fontWeight: FontWeight.bold),
           ),
