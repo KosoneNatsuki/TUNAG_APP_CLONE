@@ -17,22 +17,22 @@ class MyApp extends StatelessWidget {
     // タイトル・テーマを設定
     return const MaterialApp(
       title: 'TUNAG_CLONE',
-      home: StartPage(title: 'TUNAG'),
+      home: StartUpPage(title: 'TUNAG'),
       debugShowCheckedModeBanner: false, // 右上のデバッグ用バナー非表示設定
     );
   }
 }
 
-// 画面はStartPage関数内で作成
-class StartPage extends StatefulWidget {
-  const StartPage({super.key, required this.title});
+// 画面はStartUpPage関数内で作成
+class StartUpPage extends StatefulWidget {
+  const StartUpPage({super.key, required this.title});
   final String title;
 
   @override
-  State<StartPage> createState() => _StartPageState();
+  State<StartUpPage> createState() => _StartUpPageState();
 }
 
-class _StartPageState extends State<StartPage> {
+class _StartUpPageState extends State<StartUpPage> {
   // Timerを宣言
   Timer? timer;
   // 画面初期化時に呼ばれる関数
@@ -49,7 +49,7 @@ class _StartPageState extends State<StartPage> {
         // チャット一覧画面に遷移
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const ChatList()),
+          MaterialPageRoute(builder: (context) => const StartPage()),
         );
       },
     );

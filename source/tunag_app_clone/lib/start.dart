@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:tunag_app_clone/login.dart';
+import 'package:tunag_app_clone/new_registration.dart';
 
-class ChatList extends StatelessWidget {
-  const ChatList({super.key});
+class StartPage extends StatelessWidget {
+  const StartPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,13 @@ class ChatList extends StatelessWidget {
                   // ログインボタン
                   ElevatedButton(
                     // 押下処理
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LoginPage()),
+                      );
+                    },
                     style: TextButton.styleFrom(
                       backgroundColor: const Color(0xFF41ADBC),
                       fixedSize: const Size(320, 75),
@@ -51,8 +59,14 @@ class ChatList extends StatelessWidget {
 
                   // 新規登録ボタン
                   TextButton(
-                    onPressed: () {},
                     // 押下処理
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const NewRegistationPage()),
+                      );
+                    },
                     child: const Text(
                       '新規登録',
                       style: TextStyle(fontSize: 17, color: Colors.black),
