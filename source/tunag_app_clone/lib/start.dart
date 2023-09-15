@@ -30,7 +30,7 @@ class ChatList extends StatelessWidget {
                   const SizedBox(height: 430), // 縦の中央から下にずらす
                   // ログインボタン
                   ElevatedButton(
-                    onPressed: () => print('clicked!2'),
+                    onPressed: () {},
                     style: TextButton.styleFrom(
                       backgroundColor: const Color(0xFF41ADBC),
                       fixedSize: const Size(320, 75),
@@ -50,7 +50,7 @@ class ChatList extends StatelessWidget {
 
                   // 新規登録ボタン
                   TextButton(
-                    onPressed: () => print('clicked!2'),
+                    onPressed: () {},
                     child: const Text(
                       '新規登録',
                       style: TextStyle(fontSize: 17, color: Colors.black),

@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:tunag_app_clone/chat_list.dart';
+import 'package:tunag_app_clone/start.dart';
 
 void main() {
   // MyApp関数を呼び出す
