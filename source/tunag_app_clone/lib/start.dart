@@ -30,6 +30,7 @@ class ChatList extends StatelessWidget {
                   const SizedBox(height: 430), // 縦の中央から下にずらす
                   // ログインボタン
                   ElevatedButton(
+                    // 押下処理
                     onPressed: () {},
                     style: TextButton.styleFrom(
                       backgroundColor: const Color(0xFF41ADBC),
@@ -51,6 +52,7 @@ class ChatList extends StatelessWidget {
                   // 新規登録ボタン
                   TextButton(
                     onPressed: () {},
+                    // 押下処理
                     child: const Text(
                       '新規登録',
                       style: TextStyle(fontSize: 17, color: Colors.black),
