@@ -26,8 +26,8 @@ class LoginPage extends StatelessWidget {
               const Text(
                 "TUNAG",
                 style: TextStyle(
-                  color: Color(0xFF41ADBC),
                   fontSize: 45,
+                  color: Color(0xFF41ADBC),
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -47,8 +47,8 @@ class LoginPage extends StatelessWidget {
                           child: const Text(
                             "メールアドレス",
                             style: TextStyle(
-                              color: Color(0xFF41ADBC),
                               fontSize: 12,
+                              color: Color(0xFF41ADBC),
                             ),
                           ),
                         ),
@@ -77,8 +77,8 @@ class LoginPage extends StatelessWidget {
                           child: const Text(
                             "パスワード",
                             style: TextStyle(
-                              color: Color(0xFF41ADBC),
                               fontSize: 12,
+                              color: Color(0xFF41ADBC),
                             ),
                           ),
                         ),
@@ -115,8 +115,8 @@ class LoginPage extends StatelessWidget {
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF41ADBC),
                   fixedSize: const Size(320, 75),
+                  backgroundColor: const Color(0xFF41ADBC),
                   // ボタン角丸
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5),

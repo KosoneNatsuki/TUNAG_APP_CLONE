@@ -84,8 +84,8 @@ class _StartUpPageState extends State<StartUpPage> {
               "TUNAG",
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: Color(0xFFFFFFFF),
                 fontSize: 48,
+                color: Color(0xFFFFFFFF),
               ),
             ),
           ),
