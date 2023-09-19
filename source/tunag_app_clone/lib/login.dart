@@ -13,35 +13,37 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SizedBox(
-          width: 1070,
-          height: 2400,
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+
+        // スクロール可能になる
+        child: SingleChildScrollView(
           child: Column(
-            children: [
-              // 要素間
+            children: <Widget>[
               const SizedBox(height: 90),
 
               // TUNAGラベル
               const Text(
                 "TUNAG",
                 style: TextStyle(
-                    color: Color(0xFF41ADBC),
-                    fontSize: 45,
-                    fontWeight: FontWeight.bold),
+                  color: Color(0xFF41ADBC),
+                  fontSize: 45,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
 
-              // 要素間
-              const SizedBox(height: 80),
-
-              // 入力項目
+              // 入力項目エリア
               SizedBox(
                 width: 330,
+                height: 250,
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     // メールアドレス
                     Column(
                       children: [
                         Container(
-                          alignment: const Alignment(-1, 0),
+                          alignment: const Alignment(-1.0, 0.0),
                           child: const Text(
                             "メールアドレス",
                             style: TextStyle(
@@ -67,14 +69,11 @@ class LoginPage extends StatelessWidget {
                       ],
                     ),
 
-                    // 要素間
-                    const SizedBox(height: 10),
-
                     // パスワード
                     Column(
                       children: [
                         Container(
-                          alignment: const Alignment(-1, 0),
+                          alignment: const Alignment(-1.0, 0.0),
                           child: const Text(
                             "パスワード",
                             style: TextStyle(
@@ -104,8 +103,7 @@ class LoginPage extends StatelessWidget {
                 ),
               ),
 
-              // 要素間
-              const SizedBox(height: 70),
+              const SizedBox(height: 50),
 
               // ログインボタン
               ElevatedButton(
@@ -116,7 +114,7 @@ class LoginPage extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => const HomePage()),
                   );
                 },
-                style: TextButton.styleFrom(
+                style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF41ADBC),
                   fixedSize: const Size(320, 75),
                   // ボタン角丸
@@ -126,45 +124,58 @@ class LoginPage extends StatelessWidget {
                 ),
                 child: const Text(
                   'ログイン',
-                  style: TextStyle(fontSize: 24, color: Color(0xFFFFFFFF)),
-                ),
-              ),
-
-              // 要素間
-              const SizedBox(height: 30),
-
-              // 新規登録ボタン
-              const Text("まだ登録していない方はこちらから"),
-              TextButton(
-                // 押下処理
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const NewRegistationPage()),
-                  );
-                },
-                child: const Text(
-                  '新規登録',
                   style: TextStyle(
-                    fontSize: 13,
-                    color: Colors.black,
+                    fontSize: 24,
+                    color: Color(0xFFFFFFFF),
                   ),
                 ),
               ),
 
-              // 要素間
-              const SizedBox(height: 180),
+              const SizedBox(height: 25),
 
-              const Text(
-                "待期期間 開発演習 9/1~",
-                style: TextStyle(
-                  fontSize: 11,
-                  color: Colors.black,
+              // 新規登録ラベル
+              Center(
+                child: SizedBox(
+                  width: 330,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end, // 中央に配置
+                    children: [
+                      const Text("まだ登録していない方はこちらから"),
+                      TextButton(
+                        // 押下処理
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const NewRegistationPage()),
+                          );
+                        },
+                        child: const Text(
+                          '新規登録',
+                          style: TextStyle(
+                            fontSize: 13,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 210),
+                      // 待期期間ラベル
+                      const Text(
+                        "待期期間 開発演習 9/1~",
+                        style: TextStyle(
+                          fontSize: 11,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
-          )),
+          ),
+        ),
+      ),
     );
   }
 }
