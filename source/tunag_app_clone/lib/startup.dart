@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:tunag_app_clone/start.dart';
 
@@ -26,6 +25,7 @@ class MyApp extends StatelessWidget {
 // 画面はStartUpPage関数内で作成
 class StartUpPage extends StatefulWidget {
   const StartUpPage({super.key, required this.title});
+
   final String title;
 
   @override
@@ -70,23 +70,21 @@ class _StartUpPageState extends State<StartUpPage> {
       body: Stack(
         children: [
           // TUNAGラベルの背景色
-          Container(
-            alignment: const Alignment(0.0, 0.0), // 中央に配置
+          Center(
             child: Container(
               width: 411,
               height: 92,
-              decoration: const BoxDecoration(color: Color(0xFF41ADBC)),
+              color: const Color(0xFF41ADBC),
             ),
           ),
 
           //TUNAGラベル
-          Container(
-            alignment: const Alignment(0.0, 0.0), // 中央に配置
-            child: const Text(
+          const Center(
+            child: Text(
               "TUNAG",
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: Colors.white,
+                color: Color(0xFFFFFFFF),
                 fontSize: 48,
               ),
             ),
