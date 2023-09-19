@@ -131,7 +131,7 @@ class LoginPage extends StatelessWidget {
                 ),
               ),
 
-              const SizedBox(height: 25),
+              const SizedBox(height: 18),
 
               // 新規登録ラベル
               Center(
@@ -158,7 +158,7 @@ class LoginPage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const SizedBox(height: 210),
+                      const SizedBox(height: 215),
                       // 待期期間ラベル
                       const Text(
                         "待期期間 開発演習 9/1~",
