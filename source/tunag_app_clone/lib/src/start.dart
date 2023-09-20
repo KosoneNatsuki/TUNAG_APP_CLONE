@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tunag_app_clone/login.dart';
-import 'package:tunag_app_clone/new_registration.dart';
+import 'package:tunag_app_clone/src/login.dart';
+import 'package:tunag_app_clone/src/new_registration.dart';
 
 class StartPage extends StatelessWidget {
   const StartPage({super.key});

@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:tunag_app_clone/start.dart';
+import 'package:tunag_app_clone/src/start.dart';
 
 void main() {
   // MyApp関数を呼び出す

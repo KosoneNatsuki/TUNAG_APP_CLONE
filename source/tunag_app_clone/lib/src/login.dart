@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:tunag_app_clone/new_registration.dart';
-import 'package:tunag_app_clone/home.dart';
+import 'package:tunag_app_clone/src/new_registration.dart';
+import 'package:tunag_app_clone/src/home.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
