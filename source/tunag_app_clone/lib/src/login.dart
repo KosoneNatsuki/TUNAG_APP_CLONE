@@ -111,7 +111,7 @@ class LoginPage extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const HomePage()),
+                    MaterialPageRoute(builder: (context) => HomePage()),
                   );
                   print("メールアドレス: ${emailController.text}");
                   print("パスワード: ${passwordController.text}");

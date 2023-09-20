@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+// import 'dart:io';
+// import 'package:image_picker/image_picker.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  HomePage({super.key});
+
+  final emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -20,18 +24,52 @@ class HomePage extends StatelessWidget {
           ),
         )),
       ),
-      body: Stack(children: [
-        Container(
-          alignment: const Alignment(0, 0),
-          child: const Text(
-            "ホーム",
-            style: TextStyle(
-                color: Color(0xFF41ADBC),
-                fontSize: 40,
-                fontWeight: FontWeight.bold),
+      body: SizedBox(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        child: Column(children: [
+          // 検索エリア
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: 0,
+              horizontal: 65,
+            ),
+            child: TextField(
+              style: const TextStyle(
+                fontSize: 15,
+                color: Colors.black,
+              ),
+              decoration: InputDecoration(
+                hintText: "検索ワードを入力してください",
+                hintMaxLines: 5,
+                prefixIcon: IconButton(
+                  onPressed: () {
+                    // アイコンが押下されたときの処理
+                    print(" 検索アイコン押下されました");
+                  },
+                  icon: const Icon(
+                    Icons.search,
+                    color: Colors.grey,
+                    size: 25,
+                  ),
+                ),
+              ),
+            ),
           ),
-        ),
-      ]),
+          Center(
+            child: Column(
+              children: [
+                Center(
+                  //アプリ内から画像を表示
+                  child: Image.network(
+                    'https://via.placeholder.com/150',
+                  ),
+                ),
+              ],
+            ),
+          )
+        ]),
+      ),
     );
   }
 }
