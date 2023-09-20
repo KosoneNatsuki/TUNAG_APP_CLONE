@@ -113,6 +113,8 @@ class LoginPage extends StatelessWidget {
                     context,
                     MaterialPageRoute(builder: (context) => const HomePage()),
                   );
+                  print("メールアドレス: ${emailController.text}");
+                  print("パスワード: ${passwordController.text}");
                 },
                 style: ElevatedButton.styleFrom(
                   fixedSize: const Size(320, 75),
