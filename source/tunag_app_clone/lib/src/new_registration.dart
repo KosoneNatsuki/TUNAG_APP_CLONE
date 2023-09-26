@@ -6,14 +6,14 @@ import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
 import 'package:tunag_app_clone/src/login.dart';
 
-class NewRegistationPage extends StatefulWidget {
-  const NewRegistationPage({super.key});
+class NewRegistrationPage extends StatefulWidget {
+  const NewRegistrationPage({super.key});
 
   @override
-  NewRegistationPageState createState() => NewRegistationPageState();
+  NewRegistrationPageState createState() => NewRegistrationPageState();
 }
 
-class NewRegistationPageState extends State<NewRegistationPage> {
+class NewRegistrationPageState extends State<NewRegistrationPage> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();

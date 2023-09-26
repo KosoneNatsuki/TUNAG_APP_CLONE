@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 // import 'dart:io';
 // import 'package:image_picker/image_picker.dart';
 
@@ -44,8 +45,10 @@ class HomePage extends StatelessWidget {
                 hintMaxLines: 5,
                 prefixIcon: IconButton(
                   onPressed: () {
+                    // デバック
+                    var logger = Logger();
                     // アイコンが押下されたときの処理
-                    print(" 検索アイコン押下されました");
+                    logger.i(" 検索アイコン押下されました");
                   },
                   icon: const Icon(
                     Icons.search,

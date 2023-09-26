@@ -17,7 +17,7 @@ class StartPage extends StatelessWidget {
               "TUNAGへようこそ",
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: Color.fromARGB(255, 0, 0, 0),
+                color: Colors.black,
                 fontSize: 40,
                 fontWeight: FontWeight.bold,
               ),
@@ -66,7 +66,7 @@ class StartPage extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => NewRegistationPage()),
+                          builder: (context) => const NewRegistrationPage()),
                     );
                   },
                   child: const Text(

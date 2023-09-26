@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:logger/logger.dart';
 import 'package:tunag_app_clone/src/new_registration.dart';
 import 'package:tunag_app_clone/src/home.dart';
 
@@ -109,12 +110,15 @@ class LoginPage extends StatelessWidget {
               ElevatedButton(
                 // 押下処理
                 onPressed: () {
+                  // デバック
+                  var logger = Logger();
+
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => HomePage()),
                   );
-                  print("メールアドレス: ${emailController.text}");
-                  print("パスワード: ${passwordController.text}");
+                  logger.i("メールアドレス: ${emailController.text}");
+                  logger.i("パスワード: ${passwordController.text}");
                 },
                 style: ElevatedButton.styleFrom(
                   fixedSize: const Size(320, 75),
@@ -149,7 +153,8 @@ class LoginPage extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => NewRegistationPage()),
+                                builder: (context) =>
+                                    const NewRegistrationPage()),
                           );
                         },
                         child: const Text(
