@@ -3,20 +3,22 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
+import 'package:logger/logger.dart';
 import 'package:tunag_app_clone/src/login.dart';
 
 class NewRegistationPage extends StatefulWidget {
   const NewRegistationPage({super.key});
 
   @override
-  _NewRegistationPageState createState() => _NewRegistationPageState();
+  NewRegistationPageState createState() => NewRegistationPageState();
 }
 
-class _NewRegistationPageState extends State<NewRegistationPage> {
+class NewRegistationPageState extends State<NewRegistationPage> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
+  // 登録データ
   void registerUser() async {
     Map data = {
       'name': nameController.text,
@@ -30,13 +32,14 @@ class _NewRegistationPageState extends State<NewRegistationPage> {
       headers: <String, String>{'Content-Type': 'application/json'},
       body: body,
     );
+
+    // デバック
+    var logger = Logger();
     // HTTPリクエストが正常に処理された場合（HTTPステータスコードが200）
     if (response.statusCode == 200) {
-      // 登録成功の処理
-      print("登録出来ました");
+      logger.i("登録出来ました");
     } else {
-      // 登録失敗の処理
-      print("登録出来ません");
+      logger.i("登録出来ません");
     }
   }
 
@@ -168,9 +171,8 @@ class _NewRegistationPageState extends State<NewRegistationPage> {
 
               // 登録ボタン
               ElevatedButton(
-                // 押下処理
                 onPressed: () {
-                  registerUser(); // ユーザーを登録
+                  registerUser(); // ユーザーを登録(22行目実行)
                 },
                 style: ElevatedButton.styleFrom(
                   fixedSize: const Size(320, 75),

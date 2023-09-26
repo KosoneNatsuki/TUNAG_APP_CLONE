@@ -32,7 +32,7 @@ public class UserController {
   }
 
 @PostMapping("/add")
-    public String addUser(@RequestBody Map<String, String> requestData) {
+    public ResponseEntity<String>  addUser(@RequestBody Map<String, String> requestData) {
         String name = requestData.get("name");
         String email = requestData.get("email");
         String password = requestData.get("password");
@@ -45,9 +45,8 @@ public class UserController {
 
 
 repository.save(user);
-    return "home";
+return ResponseEntity.ok("User added successfully");
     }
-
 
   //  Update
   @PostMapping("/edit")
