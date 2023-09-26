@@ -20,47 +20,45 @@ import java.util.Map;
 @Controller
 
 public class UserController {
-    
-        private final UserRepository repository;
-        // private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
-        //  Read
-  @GetMapping("/")
-  public String showAllUser(@ModelAttribute User user, Model model) {
-    model.addAttribute("User", repository.findAll()); 
-    return "test";
-  }
+   private final UserRepository repository;
+   // private static final Logger logger =
+   // LoggerFactory.getLogger(UserController.class);
 
-@PostMapping("/add")
-    public ResponseEntity<String>  addUser(@RequestBody Map<String, String> requestData) {
-        String name = requestData.get("name");
-        String email = requestData.get("email");
-        String password = requestData.get("password");
+   // Read
+   @GetMapping("/")
+   public String showAllUser(@ModelAttribute User user, Model model) {
+      model.addAttribute("User", repository.findAll());
+      return "test";
+   }
 
-        // emailとpasswordを使ってユーザーをデータベースに保存するなどの処理を実行
-        User user = new User();
-        user.setName(name);
-        user.setEmail(email);
-        user.setPassword(password);
+   @PostMapping("/add")
+   public ResponseEntity<String> addUser(@RequestBody Map<String, String> requestData) {
+      String name = requestData.get("name");
+      String email = requestData.get("email");
+      String password = requestData.get("password");
 
+      // emailとpasswordを使ってユーザーをデータベースに保存するなどの処理を実行
+      User user = new User();
+      user.setName(name);
+      user.setEmail(email);
+      user.setPassword(password);
 
-repository.save(user);
-return ResponseEntity.ok("User added successfully");
-    }
+      repository.save(user);
+      return ResponseEntity.ok("User added successfully");
+   }
 
-  //  Update
-  @PostMapping("/edit")
-  public String editUser(@ModelAttribute User user) {
-    repository.save(user);
-    return "login";
-  }
+   // Update
+   @PostMapping("/edit")
+   public String editUser(@ModelAttribute User user) {
+      repository.save(user);
+      return "login";
+   }
 
-
-
-  //  Delete
-  @GetMapping("/delete/{id}")
-  public String deleteUser(@PathVariable Integer id) { 
-    repository.deleteById(id);
-    return "login";
-  }
+   // Delete
+   @GetMapping("/delete/{id}")
+   public String deleteUser(@PathVariable Integer id) {
+      repository.deleteById(id);
+      return "login";
+   }
 }

@@ -13,7 +13,7 @@ import lombok.Setter;
 public class User {
     @Id // Entityの主キーを設定する
     @GeneratedValue // Entityの値を自動採番する
-    
+
     private Integer id;
     private String name;
     private String email;
