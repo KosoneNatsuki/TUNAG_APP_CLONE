@@ -1,14 +1,44 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
 import 'package:tunag_app_clone/src/login.dart';
-import 'package:tunag_app_clone/src/home.dart';
 
-class NewRegistationPage extends StatelessWidget {
-  NewRegistationPage({super.key});
+class NewRegistationPage extends StatefulWidget {
+  const NewRegistationPage({super.key});
 
-  final nameController = TextEditingController();
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+  @override
+  _NewRegistationPageState createState() => _NewRegistationPageState();
+}
+
+class _NewRegistationPageState extends State<NewRegistationPage> {
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  void registerUser() async {
+    Map data = {
+      'name': nameController.text,
+      'email': emailController.text,
+      'password': passwordController.text,
+    };
+    var body = json.encode(data);
+
+    final response = await http.post(
+      Uri.parse('http://192.168.3.23:8080/add'), // 登録用のエンドポイントを指定
+      headers: <String, String>{'Content-Type': 'application/json'},
+      body: body,
+    );
+    // HTTPリクエストが正常に処理された場合（HTTPステータスコードが200）
+    if (response.statusCode == 200) {
+      // 登録成功の処理
+      print("登録出来ました");
+    } else {
+      // 登録失敗の処理
+      print("登録出来ません");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -140,10 +170,7 @@ class NewRegistationPage extends StatelessWidget {
               ElevatedButton(
                 // 押下処理
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => HomePage()),
-                  );
+                  registerUser(); // ユーザーを登録
                 },
                 style: ElevatedButton.styleFrom(
                   fixedSize: const Size(320, 75),
