@@ -1,14 +1,70 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
-import 'package:tunag_app_clone/src/new_registration.dart';
 import 'package:tunag_app_clone/src/home.dart';
+import 'package:tunag_app_clone/src/new_registration.dart';
 
-class LoginPage extends StatelessWidget {
-  LoginPage({super.key});
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
 
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+  @override
+  LoginPageState createState() => LoginPageState();
+}
+
+class LoginPageState extends State<LoginPage> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  // ログイン処理
+  void loginUser() async {
+    Map data = {
+      'email': emailController.text,
+      'password': passwordController.text,
+    };
+    var body = json.encode(data);
+
+    final response = await http.post(
+      Uri.parse('http://192.168.3.23:8080/login'), // 登録用のエンドポイントを指定
+      headers: <String, String>{'Content-Type': 'application/json'},
+      body: body,
+    );
+
+    // デバック
+    var logger = Logger();
+    // HTTPリクエストが正常に処理された場合（HTTPステータスコードが200）
+    if (response.statusCode == 200) {
+      logger.i("ログイン成功");
+      // ログイン成功時にホーム画面に遷移
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => HomePage(),
+        ),
+      );
+    } else {
+      logger.i("ログイン失敗");
+      // エラーメッセージを表示する
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text("ログインエラー"),
+            content: const Text("ログインに失敗しました。正しい情報を入力してください。"),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(); // ダイアログを閉じる
+                },
+                child: const Text("OK"),
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -108,17 +164,8 @@ class LoginPage extends StatelessWidget {
 
               // ログインボタン
               ElevatedButton(
-                // 押下処理
                 onPressed: () {
-                  // デバック
-                  var logger = Logger();
-
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => HomePage()),
-                  );
-                  logger.i("メールアドレス: ${emailController.text}");
-                  logger.i("パスワード: ${passwordController.text}");
+                  loginUser(); // ユーザーをログイン(22行目実行)
                 },
                 style: ElevatedButton.styleFrom(
                   fixedSize: const Size(320, 75),

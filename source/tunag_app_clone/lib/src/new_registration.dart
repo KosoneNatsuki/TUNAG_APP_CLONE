@@ -37,9 +37,9 @@ class NewRegistrationPageState extends State<NewRegistrationPage> {
     var logger = Logger();
     // HTTPリクエストが正常に処理された場合（HTTPステータスコードが200）
     if (response.statusCode == 200) {
-      logger.i("登録出来ました");
+      logger.i("登録成功");
     } else {
-      logger.i("登録出来ません");
+      logger.i("登録失敗");
     }
   }
 
@@ -207,7 +207,7 @@ class NewRegistrationPageState extends State<NewRegistrationPage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => LoginPage()),
+                                builder: (context) => const LoginPage()),
                           );
                         },
                         child: const Text(

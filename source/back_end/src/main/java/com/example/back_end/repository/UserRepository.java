@@ -8,4 +8,7 @@ import com.example.back_end.model.User;
 @Repository // Repositoryクラスであることを示す
 // User: エンティティクラス指定、Integer: idの型を指定
 public interface UserRepository extends JpaRepository<User, Integer> {
+
+    User findByEmail(String email);
+    User findByPassword(String password);
 }
