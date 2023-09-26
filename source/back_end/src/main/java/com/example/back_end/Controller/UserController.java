@@ -45,7 +45,7 @@ public class UserController {
       user.setPassword(password);
 
       repository.save(user);
-      return ResponseEntity.ok("User added successfully");
+      return ResponseEntity.ok("ユーザーが登録されました");
    }
 
    // Update
