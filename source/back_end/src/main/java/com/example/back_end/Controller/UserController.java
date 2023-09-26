@@ -32,6 +32,7 @@ public class UserController {
       return "test";
    }
 
+   // 登録
    @PostMapping("/add")
    public ResponseEntity<String> addUser(@RequestBody Map<String, String> requestData) {
       String name = requestData.get("name");
