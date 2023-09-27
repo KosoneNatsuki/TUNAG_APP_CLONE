@@ -17,11 +17,11 @@ class HomePage extends StatelessWidget {
         automaticallyImplyLeading: false, // デフォルト表示の戻るボタン非表示設定
         backgroundColor: const Color(0xFF41ADBC),
         toolbarHeight: 100,
-        centerTitle: true,
-        title: Center(
+        centerTitle: true, // タイトルをcenterに設定
+        title: const Center(
             child: Text(
-          "タイムライン ユーザーID: $userId",
-          style: const TextStyle(
+          "タイムライン",
+          style: TextStyle(
             fontSize: 30,
             color: Color(0xFFFFFFFF),
           ),

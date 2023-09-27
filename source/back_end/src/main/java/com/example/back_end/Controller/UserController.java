@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.example.back_end.model.User;
 import com.example.back_end.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+
+import java.util.HashMap;
 import java.util.Map;
 
 @RequiredArgsConstructor
@@ -46,7 +48,7 @@ public class UserController {
 
    // ------------------------------- ログイン ------------------------------- //
    @PostMapping("/login")
-   public ResponseEntity<String> login(@RequestBody Map<String, String> loginRequest) {
+   public ResponseEntity<Map<String, Integer>> login(@RequestBody Map<String, String> loginRequest) {
       String email = loginRequest.get("email");
       String password = loginRequest.get("password");
 
@@ -55,10 +57,15 @@ public class UserController {
 
       if (user == null || !user.getPassword().equals(password)) {
          // ユーザーが存在しないか、パスワードが一致しない場合の処理
-         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("ログインに失敗しました");
+         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null); // エラーの場合はnullを返す
       }
+
       // ログイン成功時の処理
-      return ResponseEntity.ok("ユーザーがログインされました");
+      // ユーザーIDを含めたレスポンスを返す
+      Map<String, Integer> response = new HashMap<>();
+      response.put("userId", user.getId()); // ユーザーIDを追加
+
+      return ResponseEntity.ok(response);
    }
 
    // 読み込む
