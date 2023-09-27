@@ -138,8 +138,8 @@ class LoginPageState extends State<LoginPage> {
                       controller: passwordController,
                       maxLength: 20,
                       maxLengthEnforcement: MaxLengthEnforcement.enforced,
-                      obscureText: true,
-                      obscuringCharacter: '*',
+                      obscureText: true, // 入力文字を*で隠す
+                      obscuringCharacter: '*', // 隠す文字を指定
                       decoration: const InputDecoration(
                         labelText: "パスワード",
                         hintText: "英数字で入力してください",
