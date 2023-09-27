@@ -4,7 +4,9 @@ import 'package:logger/logger.dart';
 // import 'package:image_picker/image_picker.dart';
 
 class HomePage extends StatelessWidget {
-  HomePage({super.key});
+  final String userId; // ユーザーIDを保持するフィールド
+
+  HomePage({super.key, required this.userId});
 
   final emailController = TextEditingController();
 
@@ -16,10 +18,10 @@ class HomePage extends StatelessWidget {
         backgroundColor: const Color(0xFF41ADBC),
         toolbarHeight: 100,
         centerTitle: true,
-        title: const Center(
+        title: Center(
             child: Text(
-          "タイムライン",
-          style: TextStyle(
+          "タイムライン ユーザーID: $userId",
+          style: const TextStyle(
             fontSize: 30,
             color: Color(0xFFFFFFFF),
           ),

@@ -18,7 +18,10 @@ class LoginPageState extends State<LoginPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  // ログイン処理
+  // ログインしたユーザーのIDを保持するフィールド
+  String loginUserId = '1';
+
+  // 入力した値を格納
   void loginUser(context) async {
     Map data = {
       'email': emailController.text,
@@ -39,14 +42,36 @@ class LoginPageState extends State<LoginPage> {
     if (response.statusCode == 200) {
       logger.i("ログイン成功");
       // ログイン成功時にホーム画面に遷移
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (context) => HomePage(),
-        ),
-      );
+      if (loginUserId.isNotEmpty) {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            // ホーム画面にUserIDを渡す
+            builder: (context) => HomePage(userId: loginUserId),
+          ),
+        );
+      } else {
+        // ログイン成功してもユーザーIDが不明な場合、エラーメッセージを表示
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text("エラー"),
+              content: const Text("ユーザーIDが不明です。ログインに失敗しました。"),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(); // ダイアログを閉じる
+                  },
+                  child: const Text("OK"),
+                ),
+              ],
+            );
+          },
+        );
+      }
+      // ログイン失敗処理
     } else {
       logger.i("ログイン失敗");
-      // エラーメッセージを表示する
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -67,6 +92,7 @@ class LoginPageState extends State<LoginPage> {
     }
   }
 
+  // ログイン画面レイアウト
   @override
   Widget build(BuildContext context) {
     return Scaffold(
