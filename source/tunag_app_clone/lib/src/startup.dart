@@ -65,31 +65,38 @@ class _StartUpPageState extends State<StartUpPage> {
   @override
   Widget build(BuildContext context) {
     // 以下で表示する画面を構成する
-    return Scaffold(
-      // メインエリア
-      body: Stack(
-        children: [
-          // TUNAGラベルの背景色
-          Center(
-            child: Container(
-              width: 411,
-              height: 92,
-              color: const Color(0xFF41ADBC),
-            ),
-          ),
+    return WillPopScope(
+      onWillPop: () async {
+        // アンドロイドの戻るボタンが押されても何もしない
+        return false;
+      },
+      child: Scaffold(
+        // メインエリア
+        body: Center(
+          child: SingleChildScrollView(
+            child: Stack(
+              alignment: Alignment.center, // 横縦の中央に配置
+              children: [
+                // TUNAGラベルの背景色
+                Container(
+                  width: 411,
+                  height: 92,
+                  color: const Color(0xFF41ADBC),
+                ),
 
-          //TUNAGラベル
-          const Center(
-            child: Text(
-              "TUNAG",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 48,
-                color: Color(0xFFFFFFFF),
-              ),
+                //TUNAGラベル
+                const Text(
+                  "TUNAG",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 48,
+                    color: Color(0xFFFFFFFF),
+                  ),
+                ),
+              ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }
