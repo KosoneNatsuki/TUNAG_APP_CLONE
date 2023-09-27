@@ -19,7 +19,7 @@ class LoginPageState extends State<LoginPage> {
   final TextEditingController passwordController = TextEditingController();
 
   // ログイン処理
-  void loginUser() async {
+  void loginUser(context) async {
     Map data = {
       'email': emailController.text,
       'password': passwordController.text,
@@ -34,6 +34,7 @@ class LoginPageState extends State<LoginPage> {
 
     // デバック
     var logger = Logger();
+
     // HTTPリクエストが正常に処理された場合（HTTPステータスコードが200）
     if (response.statusCode == 200) {
       logger.i("ログイン成功");
@@ -165,7 +166,7 @@ class LoginPageState extends State<LoginPage> {
               // ログインボタン
               ElevatedButton(
                 onPressed: () {
-                  loginUser(); // ユーザーをログイン(22行目実行)
+                  loginUser(context); // ユーザーをログイン(22行目実行)
                 },
                 style: ElevatedButton.styleFrom(
                   fixedSize: const Size(320, 75),
