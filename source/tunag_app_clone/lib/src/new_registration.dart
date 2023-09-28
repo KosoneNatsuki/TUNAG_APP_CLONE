@@ -27,17 +27,12 @@ class NewRegistrationPageState extends State<NewRegistrationPage> {
   // 登録データ
   Future<void> registerUser(context) async {
     // 変数定義
+    var logger = Logger(); // デバック
     final name = nameController.text;
     final email = emailController.text;
     final password = passwordController.text;
 
-    var logger = Logger(); // デバック
-
-    final data = {
-      'name': name,
-      'email': email,
-      'password': password,
-    };
+    final data = {'name': name, 'email': email, 'password': password};
     final body = json.encode(data);
 
     final response = await http.post(
@@ -52,11 +47,8 @@ class NewRegistrationPageState extends State<NewRegistrationPage> {
       final responseData = json.decode(response.body);
       final userId = responseData['userId'];
 
-      logger.i("validateFlag: $validateFlag");
-      logger.i(validateFlag);
-
       // 登録成功時にホーム画面に遷移
-      if (userId != null && validateFlag == true) {
+      if (userId != null && validateFlag) {
         // ユーザーIDが取得できた場合、registerUserIdに設定し、ホーム画面に遷移
         setState(() {
           registerUserId = userId.toString();
@@ -72,7 +64,7 @@ class NewRegistrationPageState extends State<NewRegistrationPage> {
         _showErrorPopup(context, "ユーザーIDが取得できませんでした。");
       }
     } else {
-      String message = nameController.text.isEmpty
+      final message = nameController.text.isEmpty
           ? "名前を入力してください。"
           : emailController.text.isEmpty
               ? "メールアドレスを入力してください。"
@@ -107,159 +99,154 @@ class NewRegistrationPageState extends State<NewRegistrationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SizedBox(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
+      // スクロール可能になる
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            const SizedBox(height: 90),
 
-        // スクロール可能になる
-        child: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              const SizedBox(height: 90),
+            // TUNAGラベル
+            const Text(
+              "TUNAG",
+              style: TextStyle(
+                color: Color(0xFF41ADBC),
+                fontSize: 45,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
 
-              // TUNAGラベル
-              const Text(
-                "TUNAG",
-                style: TextStyle(
-                  color: Color(0xFF41ADBC),
-                  fontSize: 45,
-                  fontWeight: FontWeight.bold,
+            // 入力項目エリア
+            SizedBox(
+              width: 330,
+              height: 330,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  // 名前
+                  TextFormField(
+                    controller: nameController,
+                    maxLength: 10,
+                    maxLengthEnforcement:
+                        MaxLengthEnforcement.enforced, //最大桁数以上は入力不可
+                    decoration: const InputDecoration(
+                      hintText: "たろう",
+                      labelText: "名前",
+                      hintStyle: TextStyle(fontSize: 14),
+                    ),
+                    keyboardType: TextInputType.name,
+                    textInputAction: TextInputAction.next, // 次の項目に行く
+                  ),
+
+                  // メールアドレス
+                  TextFormField(
+                    controller: emailController,
+                    maxLength: 255,
+                    maxLengthEnforcement:
+                        MaxLengthEnforcement.enforced, //最大桁数以上は入力不可
+                    decoration: const InputDecoration(
+                      suffixText: '@gmail.com',
+                      labelText: "メールアドレス",
+                      hintStyle: TextStyle(fontSize: 14),
+                    ),
+                    keyboardType: TextInputType.emailAddress,
+                    textInputAction: TextInputAction.next, // 次の項目に行く
+                  ),
+
+                  // パスワード
+                  TextFormField(
+                    controller: passwordController,
+                    maxLength: 20,
+                    maxLengthEnforcement:
+                        MaxLengthEnforcement.enforced, //最大桁数以上は入力不可
+                    obscureText: true, // 入力文字を*で隠す
+                    obscuringCharacter: '*', // 隠す文字を指定
+                    decoration: const InputDecoration(
+                      labelText: "パスワード",
+                      hintText: "英数字で入力してください",
+                      hintStyle: TextStyle(fontSize: 14),
+                    ),
+                    keyboardType: TextInputType.visiblePassword,
+                    textInputAction: TextInputAction.send, // 送信
+                  ),
+                ],
+              ),
+            ),
+
+            const SizedBox(height: 50),
+
+            // 登録ボタン
+            ElevatedButton(
+              onPressed: () {
+                // テキストフィールドが空かのフラグ設定
+                setState(() {
+                  List<TextEditingController> controllers = [
+                    nameController,
+                    emailController,
+                    passwordController
+                  ];
+                  validateFlag = controllers
+                      .every((controller) => controller.text.isNotEmpty);
+                });
+                registerUser(context); // ユーザーを登録(22行目実行)
+              },
+              style: ElevatedButton.styleFrom(
+                fixedSize: const Size(320, 75),
+                backgroundColor: const Color(0xFF41ADBC),
+                // ボタン角丸
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5),
                 ),
               ),
+              child: const Text(
+                '登録',
+                style: TextStyle(
+                  fontSize: 24,
+                  color: Color(0xFFFFFFFF),
+                ),
+              ),
+            ),
 
-              // 入力項目エリア
-              SizedBox(
+            const SizedBox(height: 18),
+
+            // 新規登録ラベル
+            Center(
+              child: SizedBox(
                 width: 330,
-                height: 330,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.end, // 中央に配置
                   children: [
-                    // 名前
-                    TextFormField(
-                      controller: nameController,
-                      maxLength: 10,
-                      maxLengthEnforcement:
-                          MaxLengthEnforcement.enforced, //最大桁数以上は入力不可
-                      decoration: const InputDecoration(
-                        hintText: "たろう",
-                        labelText: "名前",
-                        hintStyle: TextStyle(fontSize: 14),
+                    const Text("すでに登録している方はこちらから"),
+                    TextButton(
+                      // 押下処理
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const LoginPage()),
+                        );
+                      },
+                      child: const Text(
+                        'ログイン',
+                        style: TextStyle(
+                          fontSize: 13,
+                          color: Colors.black,
+                        ),
                       ),
-                      keyboardType: TextInputType.name,
-                      textInputAction: TextInputAction.next, // 次の項目に行く
                     ),
-
-                    // メールアドレス
-                    TextFormField(
-                      controller: emailController,
-                      maxLength: 255,
-                      maxLengthEnforcement:
-                          MaxLengthEnforcement.enforced, //最大桁数以上は入力不可
-                      decoration: const InputDecoration(
-                        suffixText: '@gmail.com',
-                        labelText: "メールアドレス",
-                        hintStyle: TextStyle(fontSize: 14),
+                    const SizedBox(height: 135),
+                    // 待期期間ラベル
+                    const Text(
+                      "待期期間 開発演習 9/1~",
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: Colors.black,
                       ),
-                      keyboardType: TextInputType.emailAddress,
-                      textInputAction: TextInputAction.next, // 次の項目に行く
-                    ),
-
-                    // パスワード
-                    TextFormField(
-                      controller: passwordController,
-                      maxLength: 20,
-                      maxLengthEnforcement:
-                          MaxLengthEnforcement.enforced, //最大桁数以上は入力不可
-                      obscureText: true, // 入力文字を*で隠す
-                      obscuringCharacter: '*', // 隠す文字を指定
-                      decoration: const InputDecoration(
-                        labelText: "パスワード",
-                        hintText: "英数字で入力してください",
-                        hintStyle: TextStyle(fontSize: 14),
-                      ),
-                      keyboardType: TextInputType.visiblePassword,
-                      textInputAction: TextInputAction.send, // 送信
                     ),
                   ],
                 ),
               ),
-
-              const SizedBox(height: 50),
-
-              // 登録ボタン
-              ElevatedButton(
-                onPressed: () {
-                  // テキストフィールドが空かのフラグ設定
-                  setState(() {
-                    List<TextEditingController> controllers = [
-                      nameController,
-                      emailController,
-                      passwordController
-                    ];
-                    validateFlag = controllers
-                        .every((controller) => controller.text.isNotEmpty);
-                  });
-                  registerUser(context); // ユーザーを登録(22行目実行)
-                },
-                style: ElevatedButton.styleFrom(
-                  fixedSize: const Size(320, 75),
-                  backgroundColor: const Color(0xFF41ADBC),
-                  // ボタン角丸
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                ),
-                child: const Text(
-                  '登録',
-                  style: TextStyle(
-                    fontSize: 24,
-                    color: Color(0xFFFFFFFF),
-                  ),
-                ),
-              ),
-
-              const SizedBox(height: 18),
-
-              // 新規登録ラベル
-              Center(
-                child: SizedBox(
-                  width: 330,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end, // 中央に配置
-                    children: [
-                      const Text("すでに登録している方はこちらから"),
-                      TextButton(
-                        // 押下処理
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const LoginPage()),
-                          );
-                        },
-                        child: const Text(
-                          'ログイン',
-                          style: TextStyle(
-                            fontSize: 13,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 135),
-                      // 待期期間ラベル
-                      const Text(
-                        "待期期間 開発演習 9/1~",
-                        style: TextStyle(
-                          fontSize: 11,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
