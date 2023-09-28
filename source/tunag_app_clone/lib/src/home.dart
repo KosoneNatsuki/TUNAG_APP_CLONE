@@ -61,15 +61,12 @@ class HomePage extends StatelessWidget {
               ),
             ),
           ),
-          Center(
+          const Center(
             child: Column(
               children: [
                 Center(
-                  //アプリ内から画像を表示
-                  child: Image.network(
-                    'https://via.placeholder.com/150',
-                  ),
-                ),
+                    //アプリ内から画像を表示
+                    ),
               ],
             ),
           ),
