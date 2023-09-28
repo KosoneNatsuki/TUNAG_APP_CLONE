@@ -2,6 +2,7 @@ package com.example.back_end.Controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -29,7 +30,7 @@ public class UserController {
 
    // ---------------------------- ユーザー新規登録 ---------------------------- //
    @PostMapping("/add")
-   public ResponseEntity<String> addUser(@RequestBody Map<String, String> requestData) {
+   public ResponseEntity<Map<String, Integer>> addUser(@RequestBody Map<String, String> requestData) {
       // flutterのテキストエリアに入力したデータを変数に格納
       String name = requestData.get("name");
       String email = requestData.get("email");
@@ -38,12 +39,30 @@ public class UserController {
       // 格納したデータをuser変数にセット
       User user = new User();
       user.setName(name);
-      user.setEmail(email);
+      user.setEmail(email + "@gmail.com");
       user.setPassword(password);
 
+      try {
+         if (name.isEmpty() || email.isEmpty() || password.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+         } else {
+            // データベースに保存
+            repository.save(user);
+            Map<String, Integer> response = new HashMap<>();
+            response.put("userId", user.getId()); // ユーザーIDを追加
+            return ResponseEntity.ok(response);
+         }
+
+      } catch (DataIntegrityViolationException e) {
+         // 一意性制約違反などのエラーが発生した場合の処理
+         return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
+      } catch (Exception e) {
+         // その他のエラーが発生した場合の処理
+         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+      }
       // セットしたデータをDBに保存
-      repository.save(user);
-      return ResponseEntity.ok("ユーザーが登録されました");
+      // repository.save(user);
+      // return ResponseEntity.ok("ユーザーが登録されました");
    }
 
    // ------------------------------- ログイン ------------------------------- //
@@ -55,7 +74,7 @@ public class UserController {
       // emailとpasswordを使ってユーザーをデータベースから検索
       User user = repository.findByEmail(email);
 
-      if (user == null || !user.getPassword().equals(password)) {
+      if (user == null || !password.equals(password)) {
          // ユーザーが存在しないか、パスワードが一致しない場合の処理
          return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null); // エラーの場合はnullを返す
       }
@@ -64,7 +83,6 @@ public class UserController {
       // ユーザーIDを含めたレスポンスを返す
       Map<String, Integer> response = new HashMap<>();
       response.put("userId", user.getId()); // ユーザーIDを追加
-
       return ResponseEntity.ok(response);
    }
 

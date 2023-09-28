@@ -17,7 +17,7 @@ class LoginPageState extends State<LoginPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  // ログインしたユーザーのIDを保持するフィールド
+  // ログインしたユーザーのIDを保持
   String loginUserId = '';
 
   // 入力した値を格納
@@ -126,8 +126,9 @@ class LoginPageState extends State<LoginPage> {
                       maxLength: 255,
                       maxLengthEnforcement: MaxLengthEnforcement.enforced,
                       decoration: const InputDecoration(
-                        hintText: "aaa@gmail.com",
+                        hintText: "test@gmail.com",
                         labelText: "メールアドレス",
+                        hintStyle: TextStyle(fontSize: 14),
                       ),
                       keyboardType: TextInputType.emailAddress,
                       textInputAction: TextInputAction.next,
@@ -143,6 +144,7 @@ class LoginPageState extends State<LoginPage> {
                       decoration: const InputDecoration(
                         labelText: "パスワード",
                         hintText: "英数字で入力してください",
+                        hintStyle: TextStyle(fontSize: 14),
                       ),
                       keyboardType: TextInputType.visiblePassword,
                       textInputAction: TextInputAction.send,
