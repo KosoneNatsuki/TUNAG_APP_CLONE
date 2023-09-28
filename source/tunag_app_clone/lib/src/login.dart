@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
-import 'package:logger/logger.dart';
 import 'package:tunag_app_clone/src/home.dart';
 import 'package:tunag_app_clone/src/new_registration.dart';
 
@@ -22,13 +21,11 @@ class LoginPageState extends State<LoginPage> {
 
   // 入力した値を格納
   Future<void> loginUser(context) async {
+    // 変数定義
     final email = emailController.text;
     final password = passwordController.text;
 
-    final data = {
-      'email': email,
-      'password': password,
-    };
+    final data = {'email': email, 'password': password};
     final body = json.encode(data);
 
     final response = await http.post(
@@ -36,9 +33,6 @@ class LoginPageState extends State<LoginPage> {
       headers: <String, String>{'Content-Type': 'application/json'},
       body: body,
     );
-
-    // デバック
-    var logger = Logger();
 
     // HTTPリクエストが正常に処理された場合（HTTPステータスコードが200）
     if (response.statusCode == 200) {
@@ -64,8 +58,12 @@ class LoginPageState extends State<LoginPage> {
       }
       // ログイン失敗処理した場合、エラーポップアップを表示
     } else {
-      logger.i("ログイン失敗");
-      _showErrorPopup(context, "ログインに失敗しました。正しい情報を入力してください。");
+      final message = emailController.text.isEmpty
+          ? "メールアドレスを入力してください。"
+          : passwordController.text.isEmpty
+              ? "パスワードを入力してください。"
+              : "ログインに失敗しました。正しい情報を入力してください。";
+      _showErrorPopup(context, message);
     }
   }
 
