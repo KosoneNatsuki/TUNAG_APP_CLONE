@@ -17,6 +17,7 @@ import com.example.back_end.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RequiredArgsConstructor
@@ -35,11 +36,12 @@ public class UserController {
       String name = requestData.get("name");
       String email = requestData.get("email");
       String password = requestData.get("password");
+      email += "@gmail.com";
 
       // 格納したデータをuser変数にセット
       User user = new User();
       user.setName(name);
-      user.setEmail(email + "@gmail.com");
+      user.setEmail(email);
       user.setPassword(password);
 
       try {
@@ -60,9 +62,6 @@ public class UserController {
          // その他のエラーが発生した場合の処理
          return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
       }
-      // セットしたデータをDBに保存
-      // repository.save(user);
-      // return ResponseEntity.ok("ユーザーが登録されました");
    }
 
    // ------------------------------- ログイン ------------------------------- //
@@ -70,20 +69,22 @@ public class UserController {
    public ResponseEntity<Map<String, Integer>> login(@RequestBody Map<String, String> loginRequest) {
       String email = loginRequest.get("email");
       String password = loginRequest.get("password");
+      email += "@gmail.com"; // DBで検索するので文字列を追記
 
-      // emailとpasswordを使ってユーザーをデータベースから検索
-      User user = repository.findByEmail(email);
+      // 同じメールアドレスの場合もある為、リストとしてemailを追加
+      List<User> users = repository.findByEmail(email);
 
-      if (user == null || !password.equals(password)) {
-         // ユーザーが存在しないか、パスワードが一致しない場合の処理
-         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null); // エラーの場合はnullを返す
+      for (User user : users) {
+         if (password.equals(user.getPassword())) {
+            // パスワードが一致するユーザーが見つかった場合、ログイン成功
+            Map<String, Integer> response = new HashMap<>();
+            response.put("userId", user.getId());
+            return ResponseEntity.ok(response);
+         }
       }
 
-      // ログイン成功時の処理
-      // ユーザーIDを含めたレスポンスを返す
-      Map<String, Integer> response = new HashMap<>();
-      response.put("userId", user.getId()); // ユーザーIDを追加
-      return ResponseEntity.ok(response);
+      // パスワードが一致するユーザーが見つからない場合、ログイン失敗
+      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
    }
 
    // 読み込む

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
+import 'package:logger/logger.dart';
 import 'package:tunag_app_clone/src/home.dart';
 import 'package:tunag_app_clone/src/new_registration.dart';
 
@@ -21,6 +22,8 @@ class LoginPageState extends State<LoginPage> {
 
   // 入力した値を格納
   Future<void> loginUser(context) async {
+    var logger = Logger(); // デバック
+
     // 変数定義
     final email = emailController.text;
     final password = passwordController.text;
@@ -124,7 +127,7 @@ class LoginPageState extends State<LoginPage> {
                       maxLength: 255,
                       maxLengthEnforcement: MaxLengthEnforcement.enforced,
                       decoration: const InputDecoration(
-                        hintText: "test@gmail.com",
+                        suffixText: '@gmail.com',
                         labelText: "メールアドレス",
                         hintStyle: TextStyle(fontSize: 14),
                       ),
