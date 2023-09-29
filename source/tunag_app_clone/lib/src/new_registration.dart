@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
-import 'package:logger/logger.dart';
 import 'package:tunag_app_clone/src/home.dart';
 import 'package:tunag_app_clone/src/login.dart';
 
@@ -27,7 +26,6 @@ class NewRegistrationPageState extends State<NewRegistrationPage> {
   // 登録データ
   Future<void> registerUser(context) async {
     // 変数定義
-    var logger = Logger(); // デバック
     final name = nameController.text;
     final email = emailController.text;
     final password = passwordController.text;
